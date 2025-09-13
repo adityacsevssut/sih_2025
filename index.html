@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civic Voice India - Report & Resolve</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Emblem_of_India.svg/1200px-Emblem_of_India.svg.png" alt="Emblem of India">
+                <span>JanMitram</span>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#report" class="nav-link">Report Issue</a></li>
+                    <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+                    <li><a href="#leaderboard" class="nav-link">Leaderboard</a></li>
+                    <li><a href="#credit" class="nav-link">Credit</a></li>
+                    <li><a href="#awareness" class="nav-link">Awareness</a></li>
+                    <li><a href="#impact-map" class="nav-link">Impact Map</a></li>
+                    <li><a href="#" id="nav-chatbot-link" class="nav-link">Chatbot</a></li>
+                    </ul>
+            </nav>
+            <div class="header-actions">
+                 <a href="#login" class="nav-link login-btn page-switcher">Login</a>
+                 <button class="nav-toggle" aria-label="toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="page active">
+            <div class="hero">
+                <div class="container">
+                    <h1>Report Issues. Track Progress. Strengthen Governance.</h1>
+                    <p>Your voice matters. Help us build a better, cleaner, and more efficient India.</p>
+                    <a href="#report" class="btn btn-primary page-switcher">Report an Issue Now</a>
+                </div>
+            </div>
+            <div class="workflow">
+                <div class="container">
+                    <h2>How It Works</h2>
+                    <div class="workflow-process">
+                        <div class="process-step">
+                            <div class="process-arrow red">
+                                <h3><span>1</span> Identification</h3>
+                            </div>
+                            <p>Identify and capture the civic issue you are facing.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-arrow blue">
+                                <h3><span>2</span> Location</h3>
+                            </div>
+                            <p>Geo-tag the precise location of the issue for accuracy.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-arrow yellow">
+                                <h3><span>3</span> Escalation</h3>
+                            </div>
+                            <p>Select the correct administrative level for the complaint.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-arrow teal">
+                                <h3><span>4</span> Submission</h3>
+                            </div>
+                            <p>Your report is forwarded to the concerned office.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-arrow green">
+                                <h3><span>5</span> Action</h3>
+                            </div>
+                             <p>Authorities take the necessary action to resolve the issue.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="report" class="page">
+            <div class="container">
+                <h2>Report a Civic Issue</h2>
+                <p>Please provide clear and concise details about the issue you are facing.</p>
+                <form id="report-form" class="report-form">
+                    <div class="form-group">
+                        <label for="issue-photo">Upload Photo</label>
+                        <input type="file" id="issue-photo" name="issue-photo" accept="image/*" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="issue-description">Describe the Issue</label>
+                        <textarea id="issue-description" name="issue-description" rows="6" placeholder="Example: Uncollected garbage at the corner of MG Road..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                         <button type="button" id="voice-input-btn" class="btn btn-secondary voice-btn">Use Voice Input</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="escalation-level">Escalation Level</label>
+                        <select id="escalation-level" name="escalation-level" required>
+                            <option value="">-- Select Level --</option>
+                            <option value="village">Village / Panchayat</option>
+                            <option value="urban">Urban / Municipal</option>
+                            <option value="state">State</option>
+                            <option value="national">National</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <select id="department" name="department" required>
+                            <option value="">-- Select Department --</option>
+                            <option value="Sanitation Department">Sanitation Department</option>
+                            <option value="PWD">PWD (Public Works Department)</option>
+                            <option value="Water Board">Water Board</option>
+                            <option value="Electricity Board">Electricity Board</option>
+                            <option value="Traffic Police">Traffic Police</option>
+                            <option value="Municipal Corporation">Municipal Corporation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Location Tagging</label>
+                        <button type="button" id="track-location-btn" class="btn btn-secondary" style="margin-bottom: 1rem;">Track My Location</button>
+                        <div class="location-placeholder" id="location-display">
+                            <p>Location will be auto-detected.</p>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Report</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="dashboard" class="page">
+            <div class="container">
+                <h2 id="dashboard-title">Dashboard Overview</h2>
+                
+                <div class="dashboard-filters">
+                    <div class="form-group">
+                        <label for="dashboard-state-select">State</label>
+                        <select id="dashboard-state-select">
+                            <option value="">-- Select State --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dashboard-city-select">City / Municipality</label>
+                        <select id="dashboard-city-select">
+                            <option value="">-- Select City --</option>
+                        </select>
+                    </div>
+                    <div class="form-group pincode-group">
+                        <label for="dashboard-pincode-input">Or Enter Pincode</label>
+                        <input type="text" id="dashboard-pincode-input" placeholder="e.g. 751001" pattern="\d{6}">
+                    </div>
+                    <button id="dashboard-filter-btn" class="btn btn-primary">Apply</button>
+                </div>
+
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>Total Complaints</h3>
+                        <p id="total-complaints">--</p>
+                    </div>
+                    <div class="card">
+                        <h3>Complaints Resolved</h3>
+                        <p id="complaints-resolved">--</p>
+                    </div>
+                    <div class="card">
+                        <h3>Resolution %</h3>
+                        <p id="resolution-percentage">--</p>
+                    </div>
+                    <div class="card">
+                        <h3>Cleanliness Index</h3>
+                        <p id="cleanliness-index">--</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <h3>Complaints by Category</h3>
+                    <canvas id="complaintsChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="leaderboard" class="page">
+            <div class="container">
+                <h2>Leaderboard</h2>
+                <div class="leaderboard-controls">
+                    <div class="leaderboard-view-tabs">
+                        <button class="tab-link active" data-view="city">State</button>
+                        <button class="tab-link" data-view="state">City</button>
+                        <button class="tab-link" data-view="municipality">Municipality</button>
+                    </div>
+                    <div class="leaderboard-sort">
+                        <label for="sort-leaderboard">Sort by:</label>
+                        <select id="sort-leaderboard">
+                            <option value="resolved">Complaints Resolved %</option>
+                            <option value="cleanliness">Cleanliness %</option>
+                        </select>
+                    </div>
+                </div>
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th id="leaderboard-region-header">City</th>
+                            <th>Complaints Resolved %</th>
+                            <th>Cleanliness %</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="credit" class="page">
+            <div class="container">
+                <h2>Credit Point Allocation</h2>
+                <div class="leaderboard-controls">
+                    <div id="credit-view-tabs" class="leaderboard-view-tabs">
+                        <button class="tab-link active" data-view="state">State</button>
+                        <button class="tab-link" data-view="city">City</button>
+                        <button class="tab-link" data-view="municipality">Municipality</button>
+                    </div>
+                </div>
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Region</th>
+                            <th>Resolution %</th>
+                            <th>Cleanliness Index</th>
+                            <th>Credit Points</th>
+                        </tr>
+                    </thead>
+                    <tbody id="credit-body">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="awareness" class="page">
+            <div class="container">
+                <h2>Awareness Campaigns</h2>
+                <div class="awareness-grid">
+                    <div class="awareness-card">
+                        <img src="WhatsApp Image 2025-09-13 at 22.33.25_d1088369.jpg" alt="Swachh Bharat">
+                        <h3>Swachh Bharat Abhiyan</h3>
+                        <p>Join the nationwide cleanliness drive. A clean India is a healthy India. Segregate waste and keep your surroundings clean.</p>
+                    </div>
+                    <div class="awareness-card">
+                        <img src="WhatsApp Image 2025-09-13 at 22.33.25_424c12b6.jpg" alt="Road Safety">
+                        <h3>Road Safety Week</h3>
+                        <p>Follow traffic rules, wear helmets and seatbelts. Your safety is in your hands. Let's make our roads safer for everyone.</p>
+                    </div>
+                    <div class="awareness-card">
+                        <img src="Digital-India.jpg" alt="Digital India">
+                        <h3>Digital India Initiative</h3>
+                        <p>Embrace the power of technology. Use digital services for payments, governance, and education to build a knowledgeable society.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="impact-map" class="page">
+            <div class="container">
+                <h2>Live Issues Impact Map</h2>
+                <p>Visualizing the status of civic issues reported across the region.</p>
+                <div class="map-container-wrapper">
+                    <div id="impact-map-container"></div>
+                    <div class="map-legend">
+                        <div class="legend-item"><span class="legend-color reported"></span> Reported</div>
+                        <div class="legend-item"><span class="legend-color in-progress"></span> In Progress</div>
+                        <div class="legend-item"><span class="legend-color resolved"></span> Resolved</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section id="login" class="page">
+            <div class="container">
+                <div class="login-container">
+                    <h2>Login / Signup</h2>
+                    <div class="login-tabs">
+                        <button class="tab-link active" data-tab="citizen">Citizen</button>
+                        <button class="tab-link" data-tab="government">Government</button>
+                        <button class="tab-link" data-tab="corporate">Corporate</button>
+                    </div>
+
+                    <div id="citizen" class="tab-content active">
+                        <form class="login-form" id="citizen-login-form">
+                            <h3>Citizen Login</h3>
+                            <div class="form-group">
+                                <label for="citizen-email">Email / Mobile</label>
+                                <input type="text" id="citizen-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="citizen-password">Password / OTP</label>
+                                <input type="password" id="citizen-password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                            <p class="form-footer">New User? <a href="#" id="show-register-link">Register Here</a></p>
+                        </form>
+
+                        <form class="login-form hidden" id="citizen-register-form">
+                            <h3>New Citizen Registration</h3>
+                            <div class="form-group">
+                                <label for="reg-fname">First Name</label>
+                                <input type="text" id="reg-fname" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-lname">Last Name</label>
+                                <input type="text" id="reg-lname" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-aadhaar">Aadhaar Number</label>
+                                <input type="text" id="reg-aadhaar" pattern="\d{12}" title="12-digit Aadhaar number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-email">Email</label>
+                                <input type="email" id="reg-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-phone">Phone Number</label>
+                                <input type="tel" id="reg-phone" pattern="\d{10}" title="10-digit mobile number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-address">Address</label>
+                                <textarea id="reg-address" rows="3" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-pincode">Pincode</label>
+                                <input type="text" id="reg-pincode" pattern="\d{6}" title="6-digit pincode" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <p class="form-footer"><a href="#" id="show-login-link">Back to Login</a></p>
+                        </form>
+
+                        <form class="login-form hidden" id="otp-verify-form">
+                            <h3>Verify Your Account</h3>
+                            <p>An OTP has been sent to your email and phone number.</p>
+                            <div class="form-group">
+                                <label for="otp-input">Enter OTP</label>
+                                <input type="text" id="otp-input" placeholder="e.g., 123456" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Verify & Register</button>
+                        </form>
+                    </div>
+
+
+                    <div id="government" class="tab-content">
+                         <form class="login-form" id="gov-login-form">
+                            <div class="form-group">
+                                <label for="gov-id">Official ID</label>
+                                <input type="text" id="gov-id" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gov-password">Password</label>
+                                <input type="password" id="gov-password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                    </div>
+
+                    <div id="corporate" class="tab-content">
+                         <form class="login-form" id="corp-login-form">
+                            <div class="form-group">
+                                <label for="corp-email">Corporate Email</label>
+                                <input type="email" id="corp-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="corp-password">Password</label>
+                                <input type="password" id="corp-password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="chatbot">
+        <button class="chatbot-toggler">
+            <span>?</span>
+        </button>
+        <div class="chatbot-window">
+            <div class="chat-header">
+                <p>Support Bot</p>
+            </div>
+            <div class="chat-body">
+                <div class="chat-message bot">How can I help you today?</div>
+                <div class="chat-message bot">You can ask about reporting issues, tracking status, or navigating the portal.</div>
+            </div>
+            <div class="chat-footer">
+                <input type="text" placeholder="Type a message...">
+                <button>Send</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Government of India. All Rights Reserved.</p>
+            <p>Designed and Developed by the Team Prompt Ninjas(PN).</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="script.js"></script>
+</body>
+</html>
